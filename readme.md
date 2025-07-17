@@ -5,6 +5,7 @@
 
 вообще лучше использовать не sqlite, т.к. для нее нужен отдельный плагин.
 
+live demo: http://82.115.5.3:8000/
 
 стек: fastapi, sqlite, graphana, cron, bash
 
