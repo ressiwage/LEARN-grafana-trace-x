@@ -3,7 +3,7 @@ import sys
 
 def post_entry(message):
     # Определяем статус в зависимости от наличия слова "ок" в сообщении
-    success = 1 if "обновлено" in message.lower() else 0
+    success = 1 if "обновлено" in message[:2000].lower() else 0
     
     # URL вашего API
     api_url = "http://localhost:8000/add_entry"  # Замените на реальный URL, если он другой
@@ -11,7 +11,7 @@ def post_entry(message):
     # Параметры запроса
     params = {
         "success": success,
-        "message": message
+        "message": message[:2000]
     }
     
     try:
