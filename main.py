@@ -34,7 +34,7 @@ def on_startup():
 
 @app.post('/add_entry')
 def add_entry(
-   session: SessionDep = Depends(get_session),
+   session: SessionDep,
 
     message: str = Query(..., description="Message text")
 ) -> Maindata:
