@@ -35,12 +35,14 @@ def on_startup():
 @app.post('/add_entry')
 def add_entry(
    session: SessionDep,
-
+    success: int = Query(..., description="Message text"),
     message: str = Query(..., description="Message text")
 ) -> Maindata:
     """
     Add a new entry to the database.
     """
+    if success < 0 or success > 1:
+        raise HTTPException(status_code=400, detail="Success must be 0 or 1")
     entry = Maindata(success=1, message=message)
     session.add(entry)
     session.commit()
