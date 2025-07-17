@@ -37,7 +37,7 @@ def add_entry(
    session: SessionDep = Depends(get_session),
 
     message: str = Query(..., description="Message text")
-):
+) -> Maindata:
     """
     Add a new entry to the database.
     """
