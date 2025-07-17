@@ -44,9 +44,12 @@ async def root(session: SessionDep):
         </body>
     </html>
     """
-    session.add(Entry(
+    entry = Entry(
         timestamp=str(datetime.datetime.now().date()),
         success=1,
         message='visit'
-    ))
+    )
+    session.add(entry)
+    session.commit()
+    session.refresh(entry)
     return HTMLResponse(content=html_content, status_code=200)
