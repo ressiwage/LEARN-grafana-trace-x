@@ -1,6 +1,5 @@
 import requests
 import sys
-
 def post_entry(message):
     # Определяем статус в зависимости от наличия слова "ок" в сообщении
     success = 1 if "обновлено" in message[:2000].lower() else 0

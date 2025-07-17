@@ -43,7 +43,7 @@ def add_entry(
     """
     if success < 0 or success > 1:
         raise HTTPException(status_code=400, detail="Success must be 0 or 1")
-    entry = Maindata(success=1, message=message)
+    entry = Maindata(success=success, message=message)
     session.add(entry)
     session.commit()
     session.refresh(entry)
