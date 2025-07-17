@@ -32,6 +32,20 @@ app = FastAPI()
 def on_startup():
     create_db_and_tables()
 
+@app.post('/add_entry')
+def add_entry(
+    message: str = Query(..., description="Message text"),
+    session: SessionDep = Depends(get_session)
+):
+    """
+    Add a new entry to the database.
+    """
+    entry = Maindata(success=1, message=message)
+    session.add(entry)
+    session.commit()
+    session.refresh(entry)
+    return {"id": entry.id, "success": entry.success, "message": entry.message}
+
 @app.get("/")
 async def root(session: SessionDep):
     html_content = """
@@ -46,7 +60,7 @@ async def root(session: SessionDep):
     """
     entry = Maindata(
         timestamp=str(datetime.datetime.now().date()),
-        success=1,
+        success=2,
         message='visit'
     )
     session.add(entry)
