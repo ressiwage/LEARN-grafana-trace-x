@@ -14,7 +14,7 @@ class Maindata(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     success: int = Field(index=True)
     message: str | None = Field(default=None, index=True)
-    timestamp: str = Field(default_factory=lambda: str(datetime.datetime.now().date()), index=True)
+    timestamp: str = Field(default_factory=lambda: str(datetime.datetime.now().isoformat()), index=True)
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
@@ -60,7 +60,7 @@ async def root(session: SessionDep):
     </html>
     """
     entry = Maindata(
-        timestamp=str(datetime.datetime.now().date()),
+        timestamp=str(datetime.datetime.now().isoformat()),
         success=2,
         message='visit'
     )
