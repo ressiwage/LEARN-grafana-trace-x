@@ -34,8 +34,9 @@ def on_startup():
 
 @app.post('/add_entry')
 def add_entry(
-    message: str = Query(..., description="Message text"),
-    session: SessionDep = Depends(get_session)
+   session: SessionDep = Depends(get_session),
+
+    message: str = Query(..., description="Message text")
 ):
     """
     Add a new entry to the database.
