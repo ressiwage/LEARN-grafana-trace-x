@@ -16,7 +16,7 @@ async def root():
             <title>grafana</title>
         </head>
         <body>
-            <iframe src="http://localhost:3000/d-solo/028e6dee-b868-48e7-bd31-ccf99abdca37/new-dashboard?orgId=1&from=1752721563899&to=1752743163899&timezone=browser&panelId=1&__feature.dashboardSceneSolo" width="450" height="200" frameborder="0"></iframe>
+            <iframe src="http://localhost:3000/d-solo/028e6dee-b868-48e7-bd31-ccf99abdca37/new-dashboard?orgId=1&from=1752722653113&to=1752744253113&timezone=browser&panelId=1&__feature.dashboardSceneSolo" width="450" height="200" frameborder="0"></iframe>
         </body>
     </html>
     """
