@@ -2,14 +2,38 @@ from typing import Annotated
 from fastapi.responses import HTMLResponse
 from fastapi import Depends, FastAPI, HTTPException, Query
 from sqlmodel import Field, Session, SQLModel, create_engine, select
-
-app = FastAPI()
+import datetime
 
 sqlite_file_name = "main.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
+connect_args = {"check_same_thread": False}
+engine = create_engine(sqlite_url, connect_args=connect_args)
+
+class Entry(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    success: int = Field(index=True)
+    message: str | None = Field(default=None, index=True)
+    timestamp: str = Field(default_factory=lambda: str(datetime.datetime.now().date()), index=True)
+
+def create_db_and_tables():
+    SQLModel.metadata.create_all(engine)
+
+
+def get_session():
+    with Session(engine) as session:
+        yield session
+
+
+SessionDep = Annotated[Session, Depends(get_session)]
+app = FastAPI()
+
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()
+
 @app.get("/")
-async def root():
+async def root(session: SessionDep):
     html_content = """
     <html>
         <head>
@@ -20,4 +44,9 @@ async def root():
         </body>
     </html>
     """
+    session.add(Entry(
+        timestamp=str(datetime.datetime.now().date()),
+        success=1,
+        message='visit'
+    ))
     return HTMLResponse(content=html_content, status_code=200)
