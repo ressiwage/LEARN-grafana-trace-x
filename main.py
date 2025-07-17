@@ -58,7 +58,7 @@ async def root(session: SessionDep):
         </head>
         <body>
             <span><a href="http://82.115.5.3:3000/">admin</a></span>
-            <span><a href="http://82.115.5.3:5000/docs">docs</a></span>
+            <span><a href="http://82.115.5.3:8000/docs">docs</a></span>
             <h1>grafana analytics</h1>
             <h3>errors and successes</h3>
             <iframe src="http://82.115.5.3:3000/d-solo/028e6dee-b868-48e7-bd31-ccf99abdca37/new-dashboard?orgId=1&from=1752146169932&to=1752750969932&timezone=browser&panelId=2&__feature.dashboardSceneSolo" width="100%" height="200" frameborder="0"></iframe>
