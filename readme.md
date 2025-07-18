@@ -5,7 +5,9 @@
 
 вообще лучше использовать не sqlite, т.к. для нее нужен отдельный плагин.
 
-live demo: http://82.115.5.3:8000/
+## пример работы
+![alt text](image.png)
+![alt text](image-1.png)
 
 стек: fastapi, sqlite, graphana, cron, bash
 
