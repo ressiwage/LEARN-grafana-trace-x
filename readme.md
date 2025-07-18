@@ -12,7 +12,7 @@ live demo: http://82.115.5.3:8000/
 query для дашбордов:
 
 1
-```
+```sql
 WITH converted AS (
    SELECT success, message, timestamp AS datetime FROM maindata
    WHERE message <> 'visit'
@@ -25,7 +25,7 @@ ORDER BY time ASC
 ```
 
 2
-```
+```sql
 WITH converted AS (
    SELECT success, message, timestamp AS datetime FROM maindata
    WHERE message = 'visit'
@@ -36,4 +36,12 @@ SELECT
 FROM converted 
 GROUP BY strftime('%Y-%m-%d %H', datetime)
 ORDER BY time ASC
+```
+
+3
+```sql
+SELECT id, strftime('%Y-%m-%dT%H:00:00Z', timestamp) AS time, CASE 
+        WHEN INSTR(message, 'Обновлено') > 0 THEN 'успех'
+        ELSE 'ошибка'
+    END  as TitleMessage, message FROM maindata WHERE message <> "visit" ORDER BY id DESC LIMIT 50;
 ```

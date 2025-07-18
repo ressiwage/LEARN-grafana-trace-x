@@ -64,13 +64,16 @@ async def root(session: SessionDep):
         <body>
             <span><a href="http://82.115.5.3:3000/">admin</a></span>
             <span><a href="http://82.115.5.3:8000/docs">docs</a></span>
-            <br>
+            <hr>
             <h1>grafana analytics</h1>
             <h3>errors and successes</h3>
             <iframe src="http://82.115.5.3:3000/d-solo/028e6dee-b868-48e7-bd31-ccf99abdca37/new-dashboard?orgId=1&from={from_}&to={to}&timezone=browser&panelId=2&__feature.dashboardSceneSolo" width="100%" height="30%" frameborder="0"></iframe>
-            <br>
+            <hr>
             <h3>visits</h3>
             <iframe src="http://82.115.5.3:3000/d-solo/028e6dee-b868-48e7-bd31-ccf99abdca37/new-dashboard?orgId=1&from={from_}&to={to}&timezone=browser&panelId=1&__feature.dashboardSceneSolo" width="100%" height="30%" frameborder="0"></iframe>
+            <hr>
+            <h3>logs</h3>
+            <iframe src=""http://82.115.5.3:3000/d-solo/028e6dee-b868-48e7-bd31-ccf99abdca37/new-dashboard?orgId=1&from={from_}&to={to}&timezone=browser&panelId=4&__feature.dashboardSceneSolo" width="450" height="200" frameborder="0"></iframe>
         </body>
     </html>
     """
