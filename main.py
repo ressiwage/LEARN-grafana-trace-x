@@ -10,6 +10,9 @@ sqlite_url = f"sqlite:///{sqlite_file_name}"
 connect_args = {"check_same_thread": False}
 engine = create_engine(sqlite_url, connect_args=connect_args)
 
+grafana_ts = lambda dt: int(dt.timestamp()*1000)
+week = datetime.timedelta(weeks=1)
+
 class Maindata(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     success: int = Field(index=True)
@@ -51,7 +54,9 @@ def add_entry(
 
 @app.get("/")
 async def root(session: SessionDep):
-    html_content = """
+    from_ = grafana_ts(datetime.datetime.now() - week)
+    to = grafana_ts(datetime.datetime.now())
+    html_content = f"""
     <html>
         <head>
             <title>grafana</title>
@@ -62,10 +67,10 @@ async def root(session: SessionDep):
             <br>
             <h1>grafana analytics</h1>
             <h3>errors and successes</h3>
-            <iframe src="http://82.115.5.3:3000/d-solo/028e6dee-b868-48e7-bd31-ccf99abdca37/new-dashboard?orgId=1&from=1752165524249&to=1752770324249&timezone=browser&panelId=2&__feature.dashboardSceneSolo" width="100%" height="30%" frameborder="0"></iframe>
+            <iframe src="http://82.115.5.3:3000/d-solo/028e6dee-b868-48e7-bd31-ccf99abdca37/new-dashboard?orgId=1&from={from_}&to={to}&timezone=browser&panelId=2&__feature.dashboardSceneSolo" width="100%" height="30%" frameborder="0"></iframe>
             <br>
             <h3>visits</h3>
-            <iframe src="http://82.115.5.3:3000/d-solo/028e6dee-b868-48e7-bd31-ccf99abdca37/new-dashboard?orgId=1&from=1752146169932&to=1752750969932&timezone=browser&panelId=1&__feature.dashboardSceneSolo" width="100%" height="30%" frameborder="0"></iframe>
+            <iframe src="http://82.115.5.3:3000/d-solo/028e6dee-b868-48e7-bd31-ccf99abdca37/new-dashboard?orgId=1&from={from_}&to={to}&timezone=browser&panelId=1&__feature.dashboardSceneSolo" width="100%" height="30%" frameborder="0"></iframe>
         </body>
     </html>
     """
